@@ -93,15 +93,15 @@ Follow these steps to run and test the ADK Agent locally on your development mac
    adk run ircc_agent
    ```
 7. **Enter following sample stockout event to test the agent**:
-```json
-{
-  "event": "OUT_OF_STOCK", 
-  "sku": "PROD-505-LTD", 
-  "customerId": "3", 
-  "required_quantity": 4
-}
-```
-Ref: [DB SCHEMA](proto/ircc_agent/mock-data/db-setup.sql) for database schema.
+   Ref: [SAMPLE STOCKOUT EVENTS](proto/ircc_agent/mock-data/stockout_events.json) for pub/sub schema and [DB SCHEMA](proto/ircc_agent/mock-data/db-setup.sql) for sqlite3 database schema.
+   ```json
+   {
+    "event": "OUT_OF_STOCK", 
+    "sku": "PROD-505-LTD", 
+    "customerId": "3", 
+    "required_quantity": 4
+   }
+   ``` 
 ---
 
 ## ☁️ GCP Cloud Deployment (`proto/deploy.sh`)
