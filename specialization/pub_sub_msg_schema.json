@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "StockoutEvent",
+    "type": "object",
+    "properties": {
+        "event": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "customerId": {
+            "type": "string"
+        },
+        "requiredQuantity": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "event",
+        "sku",
+        "customerId",
+        "requiredQuantity"
+    ]
+}

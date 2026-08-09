@@ -1,0 +1,40 @@
+main:
+  params: [event]
+  steps:
+    - log_event:
+        call: sys.log
+        args:
+          text: ${event}
+          severity: "INFO"
+
+    - decode_pubsub_payload:
+        assign:
+          - base64_str: ${event.data.message.data}
+          - decoded_json: ${json.decode(text.decode(base64.decode(base64_str)))}
+          - cloud_run_url: "https://ircc-agent-service-euczv23dnq-ts.a.run.app"
+          - app_name: "ircc_agent"
+          - agent_name: "ircc_agent"
+
+    - invoke_adk_agent:
+        call: http.post
+        args:
+          url: ${cloud_run_url + "/run"}
+          auth:
+            type: OIDC
+            audience: ${cloud_run_url}
+          headers:
+            Content-Type: "application/json"
+          body:
+            userId: "workflow_user"
+            sessionId: ${"session_" + string(sys.now())}
+            input: ${decoded_json}
+        result: agent_response
+
+    - log_result:
+        call: sys.log
+        args:
+          text: ${agent_response.body}
+          severity: "INFO"
+
+    - return_result:
+        return: ${agent_response.body}

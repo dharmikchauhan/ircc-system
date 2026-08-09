@@ -1,0 +1,79 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "tools": [
+      {
+        "name": "get_customer_loyalty",
+        "description": "Retrieve a customer's loyalty profile from xyzMart's customer database. Returns the loyalty tier (e.g., STANDARD, GOLD, PLATINUM) and whether the customer qualifies for priority backorder processing.",
+        "inputSchema": {
+          "properties": {
+            "customer_id": {
+              "title": "Customer Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "customer_id"
+          ],
+          "title": "customer_loyaltyArguments",
+          "type": "object"
+        }
+      },
+      {
+        "name": "inventory_search",
+        "description": "Search xyzMart's inventory for in-stock alternative products similar to a given out-of-stock SKU. Matches are ranked by category and tag overlap. Returns a list of candidate SKUs with relevance scores.",
+        "inputSchema": {
+          "properties": {
+            "sku": {
+              "title": "Sku",
+              "type": "string"
+            },
+            "required_quantity": {
+              "title": "Required Quantity",
+              "type": "integer"
+            },
+            "max_results": {
+              "default": 3,
+              "title": "Max Results",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "sku",
+            "required_quantity"
+          ],
+          "title": "inventory_searchArguments",
+          "type": "object"
+        }
+      },
+      {
+        "name": "submit_backorder",
+        "description": "Submit a vendor backorder request for a specific SKU and quantity via xyzMart's backorder submission API. Returns a backorder confirmation with status.",
+        "inputSchema": {
+          "properties": {
+            "sku": {
+              "title": "Sku",
+              "type": "string"
+            },
+            "quantity": {
+              "title": "Quantity",
+              "type": "integer"
+            },
+            "customer_id": {
+              "title": "Customer Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sku",
+            "quantity",
+            "customer_id"
+          ],
+          "title": "submit_backorderArguments",
+          "type": "object"
+        }
+      }
+    ]
+  }
+}
